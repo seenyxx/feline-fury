@@ -87,10 +87,13 @@ public class PlayerMeleeWeapon : MonoBehaviour
     public float pushDuration = 0.1f;
     public float pushForce = 10f;
 
+    private AudioSource audioSource;
+
 
     // Acquires all the components of the weapon and everything that is requried for the weapon to function
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         weaponHolder = transform.parent;
         weaponAim = weaponHolder.GetComponent<WeaponAim>();
         weaponSprite = GetComponent<SpriteRenderer>();
@@ -186,6 +189,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
             manaController.SubtractMana(manaUsage);
         }
 
+        audioSource.Play();
         CheckForEnemiesInTrigger();
         StartCoroutine(AnimateSwing());
     }
@@ -244,6 +248,7 @@ public class PlayerMeleeWeapon : MonoBehaviour
         }
 
         lastUse = Time.time;
+        audioSource.Play();
         CheckForEnemiesInTrigger();
         StartCoroutine(AnimateStab());
     }

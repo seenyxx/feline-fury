@@ -25,8 +25,12 @@ public class PlayerRangedWeapon : MonoBehaviour
 
     private float lastFired;
 
+    private AudioSource audioSource;
+
     // Acquires weapon sprite and also the mana controller
     private void Start() {
+        audioSource = GetComponent<AudioSource>();
+
         transform.parent.parent.GetComponent<PlayerMovement>().weaponSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         if (!manaController)
@@ -84,6 +88,7 @@ public class PlayerRangedWeapon : MonoBehaviour
     // Creates the projectile
     private void CreateProjectile()
     {
+        audioSource.Play();
         manaController.SubtractMana(manaUsagePerShot);
         Instantiate(fireMuzzleEffect, firePoint.position, firePoint.rotation);
         Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
